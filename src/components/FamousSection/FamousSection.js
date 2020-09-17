@@ -28,7 +28,10 @@ class FamousSection extends Component {
   onAddFamousPerson = () => {
     console.log('new person is:', this.state.famousPerson);
     this.setState({
-      ...this.state.famousPerson,
+      famousPerson: {
+        name: '',
+        role: ''
+      },
       people: [
         ...this.state.people,
         this.state.famousPerson.name
