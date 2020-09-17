@@ -7,7 +7,8 @@ class FamousSection extends Component {
     famousPerson: {
       name: '',
       role: '',
-    }
+    },
+    people: [],
   }
 
   handleChangeFor = (event, propertyName) => {
@@ -24,21 +25,32 @@ class FamousSection extends Component {
     console.log( `The famous person is `, this.state.famousPerson );
   }
 
+  onAddFamousPerson = () => {
+    console.log('new person is:', this.state.famousPerson);
+    this.setState({
+      ...this.state.famousPerson,
+      people: [
+        ...this.state.people,
+        this.state.famousPerson.name
+      ]
+    });
+  }
+
   render() {
     return (
       <section className="new-person-section">
         <form onSubmit={this.addPerson}>
           <label htmlFor="name-input">Name:</label>
-          <input id="name-input" onChange={(event) => this.handleChangeFor(event, 'name')} />
+    <input id="name-input" onChange={(event) => this.handleChangeFor(event, 'name')} value={this.state.famousPerson.name} />
           <label htmlFor="role-input">Famous for:</label>
-          <input id="role-input" onChange={(event) => this.handleChangeFor(event, 'role')} />
-          <button type="submit">Done</button>
+          <input id="role-input" onChange={(event) => this.handleChangeFor(event, 'role')} value={this.state.famousPerson.role} />
+          <button type="submit" onClick={this.onAddFamousPerson}>Done</button>
         </form>
         <p>
           {this.state.famousPerson.name} is famous for "{this.state.famousPerson.role}".
         </p>
         <ul>
-          {/* The list should go here. */}
+          {this.state.people.map((person, i) => <li key={i}>{person}</li>)}
         </ul>
       </section>
     );
